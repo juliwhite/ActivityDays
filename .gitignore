@@ -1,0 +1,24 @@
+# Node dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# dotenv environment variables
+.env
+
+# Logs
+logs
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Frontend build outputs (if using Vite)
+dist/
+.cache/
