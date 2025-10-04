@@ -1,4 +1,4 @@
-import './style.css';
+import './css/style.css';
 
 console.log('ActivityDays frontend loaded (Vite - vanilla)');
 
