@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+//const dotenv = require('dotenv');
 
-dotenv.config();
+//dotenv.config();
 
-const connectDB = async () => {
+/*const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URL, {
       serverApi: {
@@ -15,6 +15,16 @@ const connectDB = async () => {
       //useUnifiedTopology: true,
     });
     console.log(`MongoDB Connected: ${"Successfull connection"}`);
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
+  }
+};*/
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("MongoDB Connected: Successful connection");
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
