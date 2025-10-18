@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
 
@@ -10,6 +11,19 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // For parsing application json
+
+// Use a dynamic origin for production or specific origins
+const allowedOrigins = ['http://localhost:5173', 'https://your-netlify-app-name.netlify.app']; // Add your Netlify URL here
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps) or from the allowed list
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 // Routes placeholder
 app.get('/', (req, res) => {
