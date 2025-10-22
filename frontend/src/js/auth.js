@@ -1,7 +1,7 @@
 //const API_URL = 'http://localhost:5000/api/auth'; 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/auth`;
 
-const messageEl = document.getElementById('message');
+const messageEl = document.getElementById('signupMessage') || document.getElementById('loginMessage');
 // -------------------------------
 // Sign Up
 // -------------------------------
@@ -14,6 +14,11 @@ if (signupForm) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     //const messageEl = document.getElementById('signupMessage');
+
+    if (!email || !password) {
+      messageEl.textContent = 'Please fill in all fields';
+      return;
+    }
 
     try {
       const res = await fetch(`${API_URL}/register`, {
@@ -50,6 +55,11 @@ if (loginForm) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     //const messageEl = document.getElementById('loginMessage');
+
+    if (!email || !password) {
+      messageEl.textContent = 'Please fill in all fields';
+      return;
+    }
 
     try {
       const res = await fetch(`${API_URL}/login`, {

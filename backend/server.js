@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json()); // For parsing application json
 
 // Use a dynamic origin for production or specific origins
-const allowedOrigins = ['http://localhost:5173', 'https://your-netlify-app-name.netlify.app']; // Add your Netlify URL here
+const allowedOrigins = ['http://localhost:5173', 'https://activity-days.netlify.app/']; // Add your Netlify URL here
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps) or from the allowed list

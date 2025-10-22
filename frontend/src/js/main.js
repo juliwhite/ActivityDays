@@ -27,6 +27,7 @@ function setupAuthLinks() {
       logoutLink.style.display = 'inline';
       logoutLink.addEventListener('click', () => {
         localStorage.removeItem('token');
+        alert('Logged out successfully'); // Optional: show a message
         window.location.href = '/login.html';
       });
     }
