@@ -7,7 +7,7 @@ export default defineConfig({
     //outDir: "../dist",
     rollupOptions: {
       input: {
-        main: resolve(new URL('./src/index.html', import.meta.url).pathname),
+        main: resolve(new URL('index.html', import.meta.url).pathname),
         login: resolve(new URL('./src/login.html', import.meta.url).pathname),
         signup: resolve(new URL('./src/signup.html', import.meta.url).pathname ),
       },
