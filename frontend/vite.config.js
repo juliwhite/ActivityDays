@@ -1,9 +1,9 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
+import { resolve, dirname } from "path";
 import { fileURLToPath } from 'url';
 
-const __filename =  fileURLToPath(import.meta.url);
-const __dirname =  resolve(__filename, '..');
+// __dirname equivalent in ESM
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   build: {

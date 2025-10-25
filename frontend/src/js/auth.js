@@ -1,22 +1,27 @@
-//const API_URL = 'http://localhost:5000/api/auth'; 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/auth`;
+// Vite-aware, single auth client for signup/login
+// Uses import.meta.env.VITE_API_URL when available (build-time),
+// falls back to window.__API_BASE__ or localhost during development.
 
-const messageEl = document.getElementById('signupMessage') || document.getElementById('loginMessage');
+const API_BASE = import.meta.env.VITE_API_URL || window.__API_BASE__ || (window.location.hostname.includes('localhost') ? 'http://localhost:8000' : '');
+const API_URL = API_BASE ? `${API_BASE.replace(/\/$/, '')}/api/auth` : '/api/auth';
+
+function showMessage(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
 // -------------------------------
 // Sign Up
 // -------------------------------
 const signupForm = document.getElementById('signupForm');
-
 if (signupForm) {
   signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    //const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    //const messageEl = document.getElementById('signupMessage');
+    const email = signupForm.querySelector('input[type="email"]').value;
+    const password = signupForm.querySelector('input[type="password"]').value;
 
     if (!email || !password) {
-      messageEl.textContent = 'Please fill in all fields';
+      showMessage('signupMessage', 'Please fill in all fields');
       return;
     }
 
@@ -26,20 +31,18 @@ if (signupForm) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
       const data = await res.json();
-
       if (res.ok) {
-        messageEl.textContent = 'Account created! Redirecting to login...';
-        setTimeout(() => {
-          window.location.href = '/login.html';
-        }, 1500);
+        // if backend returns token on register, save it
+        if (data.token) localStorage.setItem('token', data.token);
+        showMessage('signupMessage', 'Account created! Redirecting to login...');
+        setTimeout(() => (window.location.href = '/login.html'), 1200);
       } else {
-        messageEl.textContent = data.message || 'Sign up failed';
+        showMessage('signupMessage', data.message || 'Sign up failed');
       }
     } catch (err) {
-        console.error('Error:', err);
-        messageEl.textContent = 'Error connecting to server';
+      console.error('Signup error:', err);
+      showMessage('signupMessage', 'Error connecting to server');
     }
   });
 }
@@ -48,16 +51,14 @@ if (signupForm) {
 // Login
 // -------------------------------
 const loginForm = document.getElementById('loginForm');
-
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    //const messageEl = document.getElementById('loginMessage');
+    const email = loginForm.querySelector('input[type="email"]').value;
+    const password = loginForm.querySelector('input[type="password"]').value;
 
     if (!email || !password) {
-      messageEl.textContent = 'Please fill in all fields';
+      showMessage('loginMessage', 'Please fill in all fields');
       return;
     }
 
@@ -67,21 +68,17 @@ if (loginForm) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
       const data = await res.json();
-
       if (res.ok) {
-        localStorage.setItem('token', data.token);
-        messageEl.textContent = 'Login successful! Redirecting...';
-        setTimeout(() => {
-          window.location.href = '/index.html';
-        }, 1500);
+        if (data.token) localStorage.setItem('token', data.token);
+        showMessage('loginMessage', 'Login successful! Redirecting...');
+        setTimeout(() => (window.location.href = '/index.html'), 800);
       } else {
-        messageEl.textContent = data.message || 'Login failed';
+        showMessage('loginMessage', data.message || 'Login failed');
       }
     } catch (err) {
-        console.error('Error:', err);
-        messageEl.textContent = 'Error connecting to server';
+      console.error('Login error:', err);
+      showMessage('loginMessage', 'Error connecting to server');
     }
   });
 }
