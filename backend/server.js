@@ -19,7 +19,7 @@ const allowedOrigins = Array.from(new Set(
   [...defaultOrigins, process.env.FRONTEND_URL].filter(Boolean)
 )).map(o => o.replace(/\/$/, ''));
 
-app.use(cors({
+const corsOptions = cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like curl, mobile apps, or server-to-server)
     if (!origin) return callback(null, true); // allow server-to-server or tools like curl
@@ -27,17 +27,23 @@ app.use(cors({
     const normalized = origin.replace(/\/$/, '');
     if (allowedOrigins.includes(normalized)) return callback(null, true);
 
-
     // Log blocked origin for debugging and return false (don't throw) so CORS middleware can handle it
     console.warn(`CORS blocked origin: ${origin}. Allowed origins: ${allowedOrigins.join(', ')}`);
     return callback(null, false); // no exception — middleware will handle preflight/response
   },
   optionsSuccessStatus: 200
-}));
+});
 
-// Ensure OPTIONS preflight requests are handled by the CORS middleware
-// Use '/*' to avoid path-to-regexp parsing errors
-app.options('/*', cors());
+// Use CORS middleware
+app.use(corsOptions);
+
+// Handle OPTIONS preflight requests without registering a '*' route (avoids path-to-regexp issues)
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return corsOptions(req, res, () => res.sendStatus(200));
+  }
+  next();
+});
 
 // Routes placeholder
 app.get('/', (req, res) => {
