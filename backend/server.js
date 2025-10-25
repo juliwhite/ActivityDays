@@ -35,10 +35,8 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-app.options('*', cors());
-
 // Ensure OPTIONS preflight requests are handled by the CORS middleware
-// Use '/*' instead of '*' to avoid path-to-regexp parsing errors on some setups
+// Use '/*' to avoid path-to-regexp parsing errors
 app.options('/*', cors());
 
 // Routes placeholder
