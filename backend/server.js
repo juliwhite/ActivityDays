@@ -38,7 +38,8 @@ app.use(cors({
 app.options('*', cors());
 
 // Ensure OPTIONS preflight requests are handled by the CORS middleware
-app.options('*', cors());
+// Use '/*' instead of '*' to avoid path-to-regexp parsing errors on some setups
+app.options('/*', cors());
 
 // Routes placeholder
 app.get('/', (req, res) => {
