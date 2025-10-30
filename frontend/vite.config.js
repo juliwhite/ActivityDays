@@ -6,13 +6,15 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  root: '.',
+  publicDir: 'public',
   build: {
-    //outDir: "../dist",
+    outDir: "dist",
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        login: resolve(__dirname, 'src/login.html'),
-        signup: resolve(__dirname, 'src/signup.html'),
+        login: resolve(__dirname, 'login.html'),
+        signup: resolve(__dirname, 'signup.html'),
       },
     },
   },
