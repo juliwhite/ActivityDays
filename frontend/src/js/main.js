@@ -47,7 +47,7 @@ function setupCardProtection() {
       if (!token) {
         e.preventDefault(); // stop navigation
         //alert('Please log in to view activities.');
-        window.location.href = 'src/login.html'; // redirect to login form
+        window.location.href = '/login.html'; // redirect to login form
       }
     });
   });
