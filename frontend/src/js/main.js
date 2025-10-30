@@ -33,7 +33,10 @@ function setupAuthLinks() {
         alert('Logged out successfully'); // Optional: show a message
         window.location.href = 'src/login.html'; // Redirect to login page
       });
-    }
+    } 
+  } else {
+    if (logoutLink) logoutLink.style.display = 'none';
+    if (loginLink) loginLink.style.display = 'inline';
   }
 }
 
@@ -47,7 +50,7 @@ function setupCardProtection() {
       if (!token) {
         e.preventDefault(); // stop navigation
         //alert('Please log in to view activities.');
-        window.location.href = '/login.html'; // redirect to login form
+        window.location.href = '/src/login.html'; // redirect to login form
       }
     });
   });
