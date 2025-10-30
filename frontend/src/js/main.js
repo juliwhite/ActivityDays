@@ -31,7 +31,7 @@ function setupAuthLinks() {
       logoutLink.addEventListener('click', () => {
         localStorage.removeItem('token');
         alert('Logged out successfully'); // Optional: show a message
-        window.location.href = 'src/login.html'; // Redirect to login page
+        window.location.href = '/login.html'; // Redirect to login page
       });
     } 
   } else {
