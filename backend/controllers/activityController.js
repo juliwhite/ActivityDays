@@ -1,6 +1,6 @@
 const Activity = require('../models/activity');
 
-export const createActivity = async (req, res) => {
+exports.createActivity = async (req, res) => {
   try {
     const { name, date, location, organizer, description, category } = req.body;
 
