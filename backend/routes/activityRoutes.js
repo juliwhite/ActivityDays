@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const activityController = require('../controllers/activityController');
+const createActivity = require('../controllers/activityController');
 
-router.post('/', activityController.createActivity);
+router.post('/', createActivity);
 
 module.exports = router;
