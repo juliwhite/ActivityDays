@@ -1,0 +1,17 @@
+const mongoose = require('mongoose');
+
+const activitySchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  date: { type: Date, required: true },
+  location: { type: String, required: true },
+  organizer: { type: String, required: true },
+  description: { type: String, required: true },
+  category: {
+    type: String,
+    enum: ['spiritual goal', 'social goals', 'physical goal', 'intellectual goal'],
+    required: true,
+  },
+  createdAt: { type: Date, default: Date.now },
+});
+
+export default mongoose.model('Activity', activitySchema);

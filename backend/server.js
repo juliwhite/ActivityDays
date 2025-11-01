@@ -4,6 +4,7 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
+const activityRoutes = require('./routes/activityRoutes');
 
 dotenv.config({ quiet: true });
 
@@ -51,6 +52,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/activities', activityRoutes);
 
 /**********************************************
  * Server host name and port configuration
