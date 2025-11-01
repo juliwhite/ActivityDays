@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Activity Days</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="/assets/logoActivityDays.jpg">
+  </head>
+  <body>
+    <div id="header"></div>
+    <main>
+      <h1 class="activity-title">Add a New Activity</h1>
+        <div id="form-message" class="success-message"></div>
+
+        <form id="add-activity-form" class="form1">
+        <fieldset>
+            <legend>Add Activity</legend>
+        
+            <label for="activity-name">Activity Name:</label>
+            <input type="text" id="activity-name" name="activity-name" required>
+            <span class="error-message" id="activity-name-error"></span>
+
+
+            <label for="activity-date">Date:</label>
+            <input type="date" id="activity-date" name="activity-date" required>
+            <span class="error-message" id="activity-date-error"></span>
+
+
+            <label for="activity-location">Location:</label>
+            <input type="text" id="activity-location" name="activity-location" required>
+            <span class="error-message" id="activity-location-error"></span>
+
+        
+            <label for="activity-organizer">Organizer:</label>
+            <input type="text" id="activity-organizer" name="activity-organizer" required>
+            <span class="error-message" id="activity-organizer-error"></span>
+
+            
+            <label for="activity-description">Description:</label>
+            <textarea id="activity-description" name="activity-description" required></textarea>
+            <span class="error-message" id="activity-description-error"></span>
+
+            
+            <label for="activity-category">Category:</label>
+            <select id="activity-category" name="activity-category" required>
+                <option value="spiritual goal">Spiritual Goal</option>
+                <option value="social goals">Social Goals</option>
+                <option value="physical goal">Physical Goal</option>
+                <option value="intellectual goal">Intellectual Goal</option>
+            </select>
+            <span class="error-message" id="activity-category-error"></span>
+        </fieldset>
+            <input type="submit" value="Add Activity">
+        </form>
+    </main>
+  
+    <div id="footer"></div>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
