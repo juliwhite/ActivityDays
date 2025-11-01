@@ -13,9 +13,18 @@ const app = express();
 // Middleware
 app.use(express.json()); // For parsing application json
 
+// ✅ Simplified working CORS setup
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://activity-days.netlify.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
+
+
 // Use a dynamic origin list for production or specific origins
 // Note: normalize origins (no trailing slash) and prefer returning false instead of throwing
-const defaultOrigins = ['http://localhost:5173', 'https://activity-days.netlify.app'];
+/*const defaultOrigins = ['http://localhost:5173', 'https://activity-days.netlify.app'];
 const allowedOrigins = Array.from(new Set(
   [...defaultOrigins, process.env.FRONTEND_URL].filter(Boolean)
 )).map(o => o.replace(/\/$/, ''));
@@ -44,7 +53,7 @@ app.use((req, res, next) => {
     return corsOptions(req, res, () => res.sendStatus(200));
   }
   next();
-});
+});*/
 
 // Routes placeholder
 app.get('/', (req, res) => {
