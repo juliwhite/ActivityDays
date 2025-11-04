@@ -53,7 +53,7 @@ app.use((req, res, next) => {
     return corsOptions(req, res, () => res.sendStatus(200));
   }
   next();
-});*/
+});*/ 
 
 // Routes placeholder
 app.get('/', (req, res) => {
