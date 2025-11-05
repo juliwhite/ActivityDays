@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { createActivity } = require('../controllers/activityController');
+const { createActivity, deleteActivity } = require('../controllers/activityController');
+const authenticateToken = require( '../middleware/authMiddleware');
+const authorizeAdmin = require('../middleware/adminMiddleware');
 
-router.post('/', createActivity);
+// Add activity — any authenticated user
+router.post('/add', authenticateToken, createActivity);
+
+// Delete activity — only admin or creator
+router.delete('/:id', authenticateToken, authorizeAdmin, deleteActivity);
 
 module.exports = router;

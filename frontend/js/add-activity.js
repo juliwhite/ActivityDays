@@ -1,5 +1,7 @@
 const form = document.getElementById('add-activity-form');
 const messageEl = document.getElementById('form-message');
+// Use environment variable or fallback to localhost for local dev
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -13,16 +15,20 @@ form.addEventListener('submit', async (e) => {
     category: document.getElementById('activity-category').value,
   };
 
+  const token = localStorage.getItem('token'); // JWT from login
+
   try {
-    const res = await fetch('http://localhost:5000/api/activities', {
+    const res = await fetch(`${API_BASE}/api/activities`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(activityData),
     });
 
     const data = await res.json();
+    //messageEl.textContent = data.message;
 
     if (res.ok) {
       messageEl.textContent = '✅ Activity added successfully!';

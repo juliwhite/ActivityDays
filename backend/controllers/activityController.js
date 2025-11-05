@@ -4,6 +4,10 @@ exports.createActivity = async (req, res) => {
   try {
     const { name, date, location, organizer, description, category } = req.body;
 
+    if (!name || !date || !location || !organizer || !description || !category) {
+      return res.status(400).json({ message: 'All fields are required.' });
+    }
+
     const newActivity = new Activity({
       name,
       date,
@@ -11,13 +15,36 @@ exports.createActivity = async (req, res) => {
       organizer,
       description,
       category,
+      createdBy: req.user.id // user id from JWT
     });
 
     await newActivity.save();
 
-    res.status(201).json({ message: 'Activity created successfully!', activity: newActivity });
+    res.status(201).json({ message: 'Activity created successfully!', newActivity });
   } catch (error) {
     console.error('Error creating activity:', error);
     res.status(500).json({ message: 'Server error creating activity' });
+  }
+};
+
+// Allow admin or creator to delete an activity
+exports.deleteActivity = async (req, res) => {
+  try {
+    const activity = await Activity.findById(req.params.id);
+
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+
+    // Allow admin or creator
+    if (req.user.role !== 'admin' && activity.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Not authorized to delete this activity' });
+    }
+
+    await activity.deleteOne();
+    res.json({ message: 'Activity deleted successfully' });
+  } catch (error) {
+    console.error('Delete Activity Error:', error);
+    res.status(500).json({ message: 'Server error deleting activity' });
   }
 };

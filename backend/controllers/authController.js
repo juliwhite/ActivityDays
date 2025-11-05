@@ -36,6 +36,7 @@ exports.registerUser = async (req, res) => {
     const newUser = new User({
       email: email.toLowerCase(),
       password: hashedPassword,
+      role: 'user' // default role
     });
     
     // Save the user to the database
@@ -70,7 +71,7 @@ exports.loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email }, 
+      { id: user._id, email: user.email, role: user.role }, 
       process.env.JWT_SECRET, 
       { expiresIn: '1h' }
     );
@@ -79,7 +80,7 @@ exports.loginUser = async (req, res) => {
     res.json({ 
       message: 'Login successful', 
       token, 
-      user: { id: user._id, email: user.email } 
+      user: { id: user._id, email: user.email, role: user.role } 
     });
   } catch (error) {
     console.error(error);
