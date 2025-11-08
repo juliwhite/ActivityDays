@@ -26,7 +26,7 @@ Content-Type: application/json
 
 {
   "email": "alice@example.com",
-  "password": "s3cret"
+  "password": "s3cret123"
 }
 
 ### Login
@@ -35,5 +35,29 @@ Content-Type: application/json
 
 {
   "email": "alice@example.com",
-  "password": "s3cret"
+  "password": "s3cret123"
+}
+
+### Login
+POST http://localhost:8000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "YourPassword123"
+}
+
+
+### Add Activity
+POST http://localhost:8000/api/activities
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MGMxYWY5ZTMyZjk1Y2FjZTJkZWY2NiIsImVtYWlsIjoiYWxpY2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2MjQwMjA3NywiZXhwIjoxNzYyNDA1Njc3fQ.K0crKaA0emZ0l8oVRttwi5tLZ-DYET1mQVT51jnjFqg
+
+{
+  "name": "Temple Visit",
+  "date": "2025-11-10",
+  "location": "Idaho Falls Temple",
+  "organizer": "Primary Group",
+  "description": "Visit the temple grounds and learn about temples.",
+  "category": "spiritual goal"
 }

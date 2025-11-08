@@ -5,7 +5,7 @@ const authenticateToken = require( '../middleware/authMiddleware');
 const authorizeAdmin = require('../middleware/adminMiddleware');
 
 // Add activity — any authenticated user
-router.post('/add', authenticateToken, createActivity);
+router.post('/', authenticateToken, createActivity);
 
 // Delete activity — only admin or creator
 router.delete('/:id', authenticateToken, authorizeAdmin, deleteActivity);
