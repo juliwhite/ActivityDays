@@ -22,3 +22,5 @@ pids
 # Frontend build outputs (if using Vite)
 dist/
 .cache/
+
+test.rest
