@@ -3,6 +3,15 @@ const messageEl = document.getElementById('form-message');
 // Use environment variable or fallback to localhost for local dev
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+// Prevent access if not logged in
+const token = localStorage.getItem('token');
+if (!token) {
+  messageEl.textContent = '⚠️ You must be logged in to add an activity.';
+  messageEl.style.color = 'red';
+  form.style.display = 'none'; // hide form
+  window.location.href = '/login.html'; // redirect to login form
+} else {
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -15,14 +24,14 @@ form.addEventListener('submit', async (e) => {
     category: document.getElementById('activity-category').value,
   };
 
-  const token = localStorage.getItem('token'); // JWT from login
+  //const token = localStorage.getItem('token'); // JWT from login
 
   try {
     const res = await fetch(`${API_BASE}/api/activities`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`, // include JWT
       },
       body: JSON.stringify(activityData),
     });
@@ -44,3 +53,4 @@ form.addEventListener('submit', async (e) => {
     messageEl.style.color = 'red';
   }
 });
+}

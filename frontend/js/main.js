@@ -43,7 +43,7 @@ function setupAuthLinks() {
 // Prevent clicking cards unless logged in 
 function setupCardProtection() {
   //const token = localStorage.getItem('token');
-  const cards = document.querySelectorAll('.card'); // adjust class if needed
+  const cards = document.querySelectorAll('.card'); 
 
   cards.forEach(card => {
     card.addEventListener('click', e => {
