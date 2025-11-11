@@ -6,7 +6,9 @@ async function loadPartials() {
   if (headerEl) {
     const header = await fetch('/partials/header.html').then(res => res.text());
     headerEl.innerHTML = header;
-    setupAuthLinks();
+
+    setupAuthLinks();  // handle login/logout visibility
+    setupMobileMenu(); // enable mobile menu toggle
   }
 
   if (footerEl) {
@@ -37,6 +39,36 @@ function setupAuthLinks() {
   } else {
     if (logoutLink) logoutLink.style.display = 'none';
     if (loginLink) loginLink.style.display = 'inline';
+  }
+}
+
+// Enable mobile menu toggle
+function setupMobileMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.classList.toggle('active'); // optional: animate icon
+
+      // Switch between hamburger ☰ and X ✖
+      if (navLinks.classList.contains('show')) {
+        menuToggle.innerHTML = '&times;'; // X symbol
+      } else {
+        menuToggle.innerHTML = '&#9776;'; // ☰ symbol
+      }
+
+    });
+
+    // Optional: close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+        menuToggle.classList.remove('active');
+        menuToggle.innerHTML = '&#9776;';
+      });
+    });
   }
 }
 

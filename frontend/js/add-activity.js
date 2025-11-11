@@ -6,10 +6,10 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 // Prevent access if not logged in
 const token = localStorage.getItem('token');
 if (!token) {
-  messageEl.textContent = '⚠️ You must be logged in to add an activity.';
+  messageEl.textContent = '⚠️ Only Admin can add an activity.';
   messageEl.style.color = 'red';
   form.style.display = 'none'; // hide form
-  window.location.href = '/login.html'; // redirect to login form
+  //window.location.href = '/login.html'; // redirect to login form
 } else {
 
 form.addEventListener('submit', async (e) => {

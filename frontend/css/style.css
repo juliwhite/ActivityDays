@@ -24,10 +24,6 @@ main{
 header{
 	background:#f0c78a;
 	padding:1rem 2rem;
-	display:flex;
-	justify-content:space-between;
-	align-items:center;
-    flex-wrap: wrap;
     position: relative;
     z-index: 10;
 }
@@ -40,15 +36,13 @@ header .logo {
 
 .navbar{ 
     display:flex; 
-    justify-content: flex-end;
-    flex: 1 1 auto;
-    /*justify-content: space-between;
+    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    gap:1rem; */
+    width: 100%;
 }
 
 .logo {
+    margin-right: auto;
     font-weight: bold;
     text-decoration: none;
 }
@@ -135,21 +129,72 @@ footer{
     align-items:center 
 }
 
-@media (max-width:600px){ 
-    main{ margin:1rem; 
+/* --- Responsive Navigation --- */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #222;
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+@media (max-width:768px){ 
+    /*main{ margin:1rem; 
         padding:1rem 
-    } 
+    } */
     header{ 
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-        /*padding:.6rem 1rem*/ 
+        align-items: flex-start;
     } 
 
+    .navbar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+        order: 2;
+        z-index: 11;
+    }
+
     .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         flex-direction: column;
-        gap: 0.75rem;
-        margin-top: 0.5rem;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        background-color: #fcf9ee;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        text-align: center;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.4s ease;
+        z-index: 10;
+    }
+
+    .nav-links.show {
+        max-height: 300px;
+    }
+
+    .nav-links li {
+        padding: 0.75rem 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* When open, rotate the icon (optional visual touch) */
+    .menu-toggle.active {
+        transform: rotate(90deg);
     }
 }
 
@@ -246,15 +291,6 @@ footer{
     display:flex; 
     justify-content:center; 
     align-items:center 
-}
-
-@media (max-width:600px){ 
-    main{ margin:1rem; 
-        padding:1rem 
-    } 
-    header{ 
-        padding:.6rem 1rem 
-    } 
 }
 
 /* Cards container */
