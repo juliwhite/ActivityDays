@@ -48,3 +48,14 @@ exports.deleteActivity = async (req, res) => {
     res.status(500).json({ message: 'Server error deleting activity' });
   }
 };
+
+// Get all activities (accessible by all authenticated users)
+exports.getAllActivities = async (req, res) => {
+  try {
+    const activities = await Activity.find().sort({ date: -1 });
+    res.json(activities);
+  } catch (error) {
+    console.error('Error fetching activities:', error);
+    res.status(500).json({ message: 'Server error fetching activities' });
+  }
+};

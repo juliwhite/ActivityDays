@@ -16,6 +16,7 @@ export default defineConfig({
         login: resolve(__dirname, 'login.html'),
         signup: resolve(__dirname, 'signup.html'),
         addActivity: resolve(__dirname, 'add-activity.html'),
+        category: resolve(__dirname, 'category.html'),
       },
     },
   },
