@@ -77,7 +77,19 @@ export function initCategoryPage() {
 
   async function loadActivities() {
     try {
-      const res = await fetch(`${API_BASE}/activities?category=${encodeURIComponent(category)}`);
+      const token = localStorage.getItem('token');
+
+      const res = await fetch(`${API_BASE}/api/activities/category/${encodeURIComponent(category)}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!res.ok) {
+        activitiesContainer.innerHTML = `<p>Error loading activities (${res.status}).</p>`;
+        return;
+      }
+
       const activities = await res.json();
 
       if (!activities.length) {
@@ -107,18 +119,5 @@ export function initCategoryPage() {
 
   loadActivities();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

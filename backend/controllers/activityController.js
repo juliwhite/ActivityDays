@@ -59,3 +59,18 @@ exports.getAllActivities = async (req, res) => {
     res.status(500).json({ message: 'Server error fetching activities' });
   }
 };
+
+// Get activities by category
+exports.getActivitiesByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+
+    // Find activities matching category
+    const activities = await Activity.find({ category }).sort({ date: -1 });
+
+    res.json(activities);
+  } catch (error) {
+    console.error('Error fetching activities by category:', error);
+    res.status(500).json({ message: 'Server error fetching activities by category' });
+  }
+};

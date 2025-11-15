@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { createActivity, deleteActivity } = require('../controllers/activityController');
+const { createActivity, deleteActivity, getActivitiesByCategory } = require('../controllers/activityController');
 const authenticateToken = require( '../middleware/authMiddleware');
 const authorizeAdmin = require('../middleware/adminMiddleware');
+
+// GET all activities
+router.get('/', authenticateToken, getAllActivities);
+
+// GET activities by category
+router.get('/category/:category', authenticateToken, getActivitiesByCategory);
 
 // Add activity — any authenticated user
 router.post('/', authenticateToken, createActivity);
