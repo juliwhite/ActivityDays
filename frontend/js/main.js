@@ -89,5 +89,14 @@ function setupCardProtection() {
   });
 }
 
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadPartials(); // wait until header/footer are loaded
 
-loadPartials()
+  // Only initialize category.js if on category.html
+  if (window.location.pathname.includes("category.html")) {
+    const categoryModule = await import("/js/category.js");
+    categoryModule.initCategoryPage();
+  }
+});
+
+//loadPartials()
