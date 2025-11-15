@@ -52,7 +52,16 @@ exports.deleteActivity = async (req, res) => {
 // Get all activities (accessible by all authenticated users)
 exports.getAllActivities = async (req, res) => {
   try {
-    const activities = await Activity.find().sort({ date: -1 });
+
+    // Decode URL in case category has spaces or special chars
+    const category = decodeURIComponent(req.params.category);
+
+    //const activities = await Activity.find().sort({ date: -1 });
+    
+    // Optionally, make it case-insensitive
+    const activities = await Activity.find({ category: new RegExp(`^${category}$`, 'i') })
+      .sort({ date: -1 });
+
     res.json(activities);
   } catch (error) {
     console.error('Error fetching activities:', error);
