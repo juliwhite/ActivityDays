@@ -5,7 +5,7 @@ const authenticateToken = require( '../middleware/authMiddleware');
 const authorizeAdmin = require('../middleware/adminMiddleware');
 
 // GET all activities
-router.get('/', authenticateToken, getAllActivities);
+//router.get('/', authenticateToken, getAllActivities);
 
 // GET activities by category
 router.get('/category/:category', authenticateToken, getActivitiesByCategory);
