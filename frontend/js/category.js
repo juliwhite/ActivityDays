@@ -1,59 +1,3 @@
-//const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-
-/*document.addEventListener('DOMContentLoaded', () => {
-  const categoryCards = document.querySelectorAll('.card'); // now it exists
-  const activitiesContainer = document.getElementById('activitiesContainer');
-  const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-  // Function to display activities
-  async function displayActivitiesByCategory(category) {
-    try {
-      const res = await fetch(`${API_BASE}/activities?category=${encodeURIComponent(category)}`);
-      const activities = await res.json();
-
-      if (!activities.length) {
-        activitiesContainer.innerHTML = `<p>No activities found for "${category}".</p>`;
-        return;
-      }
-
-      activitiesContainer.innerHTML = activities.map(a => `
-        <div class="activity-card" data-category="${a.category}">
-          <h3>${a.name}</h3>
-          <p><strong>Date:</strong> ${new Date(a.date).toLocaleDateString()}</p>
-          <p><strong>Location:</strong> ${a.location}</p>
-          <p><strong>Organizer:</strong> ${a.organizer}</p>
-          <p>${a.description}</p>
-          <div class="card-actions">
-            <button class="edit-btn" data-id="${a._id}">✏️ Edit</button>
-            <button class="delete-btn" data-id="${a._id}">🗑️ Delete</button>
-          </div>
-        </div>
-      `).join('');
-    } catch (err) {
-      activitiesContainer.innerHTML = `<p>Error loading activities.</p>`;
-      console.error(err);
-    }
-  }
-
-  // Add click listener to each category
-  categoryCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const category = card.dataset.category;
-
-      // Highlight selected category
-      categoryCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-
-      displayActivitiesByCategory(category);
-    });
-  });
-});*/
-
-
-
-
-
 
 // js/category.js
 export function initCategoryPage() {
@@ -62,7 +6,7 @@ export function initCategoryPage() {
   const addBtn = document.getElementById('addActivityBtn');
 
   const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-  const user = JSON.parse(localStorage.getItem('user')); // get user info from localStorage
+  //const user = JSON.parse(localStorage.getItem('user')); // get user info from localStorage
 
   // Get category from URL
   const params = new URLSearchParams(window.location.search);
@@ -98,6 +42,9 @@ export function initCategoryPage() {
         return;
       }
 
+      const currentUser = token ? JSON.parse(atob(token.split('.')[1])) : null;
+    const isAdmin = currentUser?.role === 'admin';
+
       // Render with admin-only edit/delete buttons
       activitiesContainer.innerHTML = activities.map(a => `
         <div class="activity-card">
@@ -107,7 +54,7 @@ export function initCategoryPage() {
           <p><strong>Organizer:</strong> ${a.organizer}</p>
           <p>${a.description}</p>
 
-          ${user?.role === 'admin' ? `
+          ${isAdmin ? `
           <div class="card-actions">
             <button class="edit-btn" data-id="${a._id}">✏️ Edit</button>
             <button class="delete-btn" data-id="${a._id}">🗑️ Delete</button>
