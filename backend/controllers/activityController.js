@@ -83,3 +83,40 @@ exports.getActivitiesByCategory = async (req, res) => {
     res.status(500).json({ message: 'Server error fetching activities by category' });
   }
 };
+
+// Update activity — ONLY admin can update
+exports.updateActivity = async (req, res) => {
+  try {
+    const activityId = req.params.id;
+
+    // Check if activity exists
+    const activity = await Activity.findById(activityId);
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+
+    // Admin only (req.user.role comes from JWT)
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Not authorized to update this activity' });
+    }
+
+    // Fields allowed to update
+    const { name, date, location, organizer, description, category } = req.body;
+
+    // Update fields only if they were provided
+    if (name) activity.name = name;
+    if (date) activity.date = date;
+    if (location) activity.location = location;
+    if (organizer) activity.organizer = organizer;
+    if (description) activity.description = description;
+    if (category) activity.category = category;
+
+    await activity.save();
+
+    res.json({ message: 'Activity updated successfully', activity });
+
+  } catch (error) {
+    console.error('Update Activity Error:', error);
+    res.status(500).json({ message: 'Server error updating activity' });
+  }
+};

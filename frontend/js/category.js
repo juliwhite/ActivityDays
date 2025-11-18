@@ -62,6 +62,7 @@ export function initCategoryPage() {
   const addBtn = document.getElementById('addActivityBtn');
 
   const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const user = JSON.parse(localStorage.getItem('user')); // get user info from localStorage
 
   // Get category from URL
   const params = new URLSearchParams(window.location.search);
@@ -97,6 +98,7 @@ export function initCategoryPage() {
         return;
       }
 
+      // Render with admin-only edit/delete buttons
       activitiesContainer.innerHTML = activities.map(a => `
         <div class="activity-card">
           <h3>${a.name}</h3>
@@ -104,10 +106,13 @@ export function initCategoryPage() {
           <p><strong>Location:</strong> ${a.location}</p>
           <p><strong>Organizer:</strong> ${a.organizer}</p>
           <p>${a.description}</p>
+
+          ${user?.role === 'admin' ? `
           <div class="card-actions">
             <button class="edit-btn" data-id="${a._id}">✏️ Edit</button>
             <button class="delete-btn" data-id="${a._id}">🗑️ Delete</button>
           </div>
+          ` : '' }
         </div>
       `).join('');
 
@@ -118,6 +123,44 @@ export function initCategoryPage() {
   }
 
   loadActivities();
+
+  // Edit button
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("edit-btn")) {
+      const id = e.target.dataset.id;
+      window.location.href = `edit-activity.html?id=${id}`;
+    }
+  });
+
+  // Delete button
+  document.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("delete-btn")) {
+      const id = e.target.dataset.id;
+      const confirmDelete = confirm("Are you sure you want to delete this activity?");
+      if (!confirmDelete) return;
+
+      const token = localStorage.getItem("token");
+
+      try {
+        const res = await fetch(`${API_BASE}/api/activities/${id}`, {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!res.ok) {
+          const msg = await res.json();
+          alert(msg.message || "Error deleting activity");
+          return;
+        }
+
+        alert("Activity deleted!");
+        loadActivities();
+      } catch (err) {
+        console.error(err);
+        alert("Server error deleting activity.");
+      }
+    }
+  });
 }
 
 
