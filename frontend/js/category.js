@@ -75,7 +75,7 @@ export function initCategoryPage() {
   document.addEventListener("click", (e) => {
     if (e.target.classList.contains("edit-btn")) {
       const id = e.target.dataset.id;
-      window.location.href = `edit-activity.html?id=${id}`;
+      window.location.href = `add-activity.html?id=${id}`;
     }
   });
 
