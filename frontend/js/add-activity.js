@@ -68,6 +68,23 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const token = localStorage.getItem('token');
 const user = JSON.parse(localStorage.getItem('user'));
 
+// Decode JWT payload helper
+function decodeToken(tkn) {
+  try {
+    return JSON.parse(atob(tkn.split('.')[1]));
+  } catch {
+    return null;
+  }
+}
+
+// Get role from localStorage user or JWT payload
+const payload = decodeToken(token);
+const role =
+  user?.role ||
+  payload?.role ||
+  payload?.user?.role ||
+  null;
+
 // Check if editing (URL contains ?id=)
 const urlParams = new URLSearchParams(window.location.search);
 const activityId = urlParams.get("id");
@@ -87,7 +104,7 @@ if (!token) {
 // ----------------------------------------------------------
 // 🔒 If editing → only allow Admin
 // ----------------------------------------------------------
-if (activityId && (!user || user.role !== "admin")) {
+if (activityId && role !== "admin") {
   messageEl.textContent = '⛔ Only Admin can edit an activity.';
   messageEl.style.color = 'red';
   form.style.display = 'none';
