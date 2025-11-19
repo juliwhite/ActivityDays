@@ -120,3 +120,17 @@ exports.updateActivity = async (req, res) => {
     res.status(500).json({ message: 'Server error updating activity' });
   }
 };
+
+// Get a single activity by ID — Admin only
+exports.getActivityById = async (req, res) => {
+  try {
+    const activity = await Activity.findById(req.params.id);
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+    res.json(activity);
+  } catch (error) {
+    console.error('Error fetching activity by ID:', error);
+    res.status(500).json({ message: 'Server error fetching activity' });
+  }
+};
