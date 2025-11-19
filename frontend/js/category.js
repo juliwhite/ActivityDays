@@ -6,7 +6,20 @@ export function initCategoryPage() {
   const addBtn = document.getElementById('addActivityBtn');
 
   const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const token = localStorage.getItem('token');
   //const user = JSON.parse(localStorage.getItem('user')); // get user info from localStorage
+
+  // Decode JWT safely
+  const decodeToken = (tkn) => {
+    try {
+      return JSON.parse(atob(tkn.split('.')[1]));
+    } catch {
+      return null;
+    }
+  };
+
+  const currentUser = token ? decodeToken(token) : null;
+  const isAdmin = currentUser?.role === 'admin' || currentUser?.user?.role === 'admin';
 
   // Get category from URL
   const params = new URLSearchParams(window.location.search);
@@ -18,16 +31,23 @@ export function initCategoryPage() {
   }
 
   titleEl.textContent = `${category} Activities`;
-  addBtn.href = `add-activity.html?category=${encodeURIComponent(category)}`;
+
+  // Add button  - only show to admin
+  if (isAdmin) {
+    addBtn.href = `add-activity.html?category=${encodeURIComponent(category)}`;
+  } else {
+    addBtn.style.display = 'none';
+  }
+  
 
   async function loadActivities() {
     try {
-      const token = localStorage.getItem('token');
+      //const token = localStorage.getItem('token');
 
       const res = await fetch(`${API_BASE}/api/activities/category/${encodeURIComponent(category)}`, {
-        headers: {
+        headers: token ? {
           "Authorization": `Bearer ${token}`
-        }
+        } : {}
       });
 
       if (!res.ok) {
@@ -41,9 +61,6 @@ export function initCategoryPage() {
         activitiesContainer.innerHTML = `<p>No activities found for "${category}".</p>`;
         return;
       }
-
-      const currentUser = token ? JSON.parse(atob(token.split('.')[1])) : null;
-    const isAdmin = currentUser?.role === 'admin';
 
       // Render with admin-only edit/delete buttons
       activitiesContainer.innerHTML = activities.map(a => `
