@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createActivity, deleteActivity, getActivitiesByCategory, updateActivity, getActivityById } = require('../controllers/activityController');
+const { createActivity, deleteActivity, getActivitiesByCategory, updateActivity, getActivityById, rateActivity } = require('../controllers/activityController');
 const authenticateToken = require( '../middleware/authMiddleware');
 const authorizeAdmin = require('../middleware/adminMiddleware');
 
@@ -22,7 +22,7 @@ router.get('/:id', authenticateToken, authorizeAdmin, getActivityById);
 // Update activity — only admin
 router.put('/:id', authenticateToken, authorizeAdmin, updateActivity);
 
-router.post('/:id/rate', authenticateToken, activityController.rateActivity);
+router.post('/:id/rate', authenticateToken, rateActivity);
 
 
 module.exports = router;
