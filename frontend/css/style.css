@@ -447,3 +447,16 @@ footer{
     color: red;
     font-size: 0.9rem;
 }
+
+/* ------- Rating Stars Styling ------- */
+.activity-card .star {
+  font-size: 24px;
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.activity-card .star.filled,
+.activity-card .star.hovered {
+  color: gold;
+}

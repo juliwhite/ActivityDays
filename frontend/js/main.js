@@ -89,8 +89,22 @@ function setupCardProtection() {
   });
 }
 
+/*function setupAddActivityVisibility() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const addBtn = document.querySelector(".add-activity-btn");
+
+  if (!addBtn) return; // avoid errors if button doesn't exist on some pages
+
+  // If no user or user is not admin → hide the button
+  if (!user || user.role !== "admin") {
+    addBtn.style.display = "none";
+  }
+}*/
+
 document.addEventListener("DOMContentLoaded", async () => {
   await loadPartials(); // wait until header/footer are loaded
+
+  //setupAddActivityVisibility();
 
   // Only initialize category.js if on category.html
   if (window.location.pathname.includes("category.html")) {

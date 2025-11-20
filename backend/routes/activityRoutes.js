@@ -22,4 +22,7 @@ router.get('/:id', authenticateToken, authorizeAdmin, getActivityById);
 // Update activity — only admin
 router.put('/:id', authenticateToken, authorizeAdmin, updateActivity);
 
+router.post('/:id/rate', authenticateToken, activityController.rateActivity);
+
+
 module.exports = router;

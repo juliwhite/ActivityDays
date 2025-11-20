@@ -36,7 +36,7 @@ exports.deleteActivity = async (req, res) => {
       return res.status(404).json({ message: 'Activity not found' });
     }
 
-    // Allow admin or creator
+    // Allow admin or creator. Check authorization. 
     if (req.user.role !== 'admin' && activity.createdBy.toString() !== req.user.id) {
       return res.status(403).json({ message: 'Not authorized to delete this activity' });
     }
@@ -132,5 +132,45 @@ exports.getActivityById = async (req, res) => {
   } catch (error) {
     console.error('Error fetching activity by ID:', error);
     res.status(500).json({ message: 'Server error fetching activity' });
+  }
+};
+
+// ⭐ RATE ACTIVITY
+exports.rateActivity = async (req, res) => {
+  try {
+    const activityId = req.params.id;
+    const { value } = req.body;
+    const userId = req.user.id; // comes from authenticateToken middleware
+
+    // Validation: must be 1–5
+    if (!value || value < 1 || value > 5) {
+      return res.status(400).json({ message: "Rating must be between 1 and 5." });
+    }
+
+    const activity = await Activity.findById(activityId);
+    if (!activity) {
+      return res.status(404).json({ message: "Activity not found." });
+    }
+
+    // Check if user already rated this activity
+    const existingRating = activity.ratings.find(r => r.userId.toString() === userId);
+    if (existingRating) {
+      return res.status(400).json({ message: "You already rated this activity." });
+    }
+
+    // Add new rating
+    activity.ratings.push({ userId, value });
+    await activity.save();
+
+    // Send updated average rating
+    res.json({
+      message: "Rating submitted successfully.",
+      averageRating: activity.getAverageRating(),
+      totalRatings: activity.ratings.length
+    });
+
+  } catch (err) {
+    console.error("Rating error:", err);
+    res.status(500).json({ message: "Server error when rating activity." });
   }
 };
