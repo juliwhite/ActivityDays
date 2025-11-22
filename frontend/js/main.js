@@ -131,7 +131,7 @@ async function loadUpcomingActivity() {
       return;
     }
 
-    const date = new Date(activity.date).toLocaleDateString();
+    const date = new Date(activity.date);
     const formattedDate = date.toLocaleDateString('en-US', { 
       weekday: 'long',   // full weekday name, e.g. "Wednesday"
       month: 'short',    // short month name, e.g. "Dec"
