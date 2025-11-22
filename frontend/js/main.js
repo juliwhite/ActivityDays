@@ -140,8 +140,8 @@ async function loadUpcomingActivity() {
 
     // Display upcoming activity with full styled card
     upcomingEl.innerHTML = `
-      <h2>Upcoming Activity</h2>
       <div class="activity-details">
+        <h2>Upcoming Activity</h2>
         <p><strong>${activity.name}</strong></p>
         <p>${activity.location}</p>
         <span class="date-highlight">${formattedDate}</span>
