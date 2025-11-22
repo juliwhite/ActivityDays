@@ -174,3 +174,20 @@ exports.rateActivity = async (req, res) => {
     res.status(500).json({ message: "Server error when rating activity." });
   }
 };
+
+// Get upcoming activity (by activity date)
+exports.getNextUpcomingActivity = async (req, res) => {
+  try {
+    const today = new Date();
+
+    const activity = await Activity.find({ date: { $gte: today } })
+      .sort({ date: 1 }) // soonest first
+      .limit(1);
+
+    res.json(activity[0] || null);
+    
+  } catch (error) {
+    console.error('Error fetching most recent activity:', error);
+    res.status(500).json({ message: 'Error fetching next upcoming activity' });
+  }
+};

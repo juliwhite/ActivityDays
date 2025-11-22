@@ -460,3 +460,65 @@ footer{
 .activity-card .star.hovered {
   color: gold;
 }
+
+/* Recent Activity Section */
+.upcoming-activity {
+  background: #ffffffee;
+  border-radius: 20px;
+  padding: 25px 30px;
+  margin: 40px auto;
+  max-width: 700px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+  transition: 0.3s ease;
+}
+
+.upcoming-activity:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+.upcoming-activity h2 {
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+  text-align: center;
+  color: #333;
+  font-weight: 700;
+}
+
+.upcoming-activity .activity-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upcoming-activity p {
+  margin: 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.upcoming-activity .date-highlight {
+  background: #5a8dee;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.upcoming-activity .btn-view {
+  margin-top: 15px;
+  display: inline-block;
+  background: #5a8dee;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.upcoming-activity .btn-view:hover {
+  background: #3d6ed0;
+}

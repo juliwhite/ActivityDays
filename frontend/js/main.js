@@ -101,6 +101,45 @@ function setupCardProtection() {
   }
 }*/
 
+// Load and display the most recent activity on the homepage
+async function loadUpcomingActivity() {
+  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+  try {
+    const res = await fetch(`${API_BASE}/activities/upcoming`);
+    const activity = await res.json();
+
+    const upcomingEl = document.getElementById("recentActivity");
+    if (!upcomingEl) return;
+
+    // No activities
+    if (!activity || activity.message === "No activities found") {
+      upcomingEl.innerHTML = `
+        <div class="upcoming-activity">
+          <h2>Upcoming Activity</h2>
+          <p>No upcoming activities at the moment.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const formattedDate = new Date(activity.date).toLocaleDateString();
+
+    // Display upcoming activity with full styled card
+    upcomingEl.innerHTML = `
+      <h2>Upcoming Activity</h2>
+      <div class="activity-details">
+        <p><strong>${activity.name}</strong></p>
+        <p>${activity.description}</p>
+        <span class="date-highlight">${formattedDate}</span>
+        <a href="/category.html?category=${activity.category}" class="btn-view">View Activity</a>
+      </div>
+    `;
+  } catch (error) {
+    console.error("Error fetching upcoming activity:", error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   await loadPartials(); // wait until header/footer are loaded
 
@@ -110,6 +149,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (window.location.pathname.includes("category.html")) {
     const categoryModule = await import("/js/category.js");
     categoryModule.initCategoryPage();
+  }
+
+  // ⭐ NEW: Load the most recent activity only on the homepage
+  if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
+    loadUpcomingActivity();
   }
 });
 
