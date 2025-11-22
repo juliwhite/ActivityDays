@@ -76,6 +76,7 @@ header .logo {
 h1{ 
     margin-bottom:1rem; 
     color: #d49c2c; 
+    text-align: center;
 }
 
 form{ 
@@ -258,20 +259,6 @@ input[type="email"], input[type="password"], input[type="text"]{
     border:1px solid #ddd; 
     border-radius:6px; 
     font-size:1rem;
-}
-
-button{ 
-    margin-top:1rem; 
-    padding:.6rem 1rem; 
-    border-radius:6px; 
-    border:none; 
-    background:#0b5; 
-    color:white; 
-    cursor:pointer 
-}
-button[disabled]{ 
-    opacity:.6; 
-    cursor:not-allowed 
 }
 
 footer{
@@ -501,6 +488,52 @@ footer{
 
 .upcoming-activity .btn-view:hover {
   background-color: #ef6c00;
+}
+
+/* ⭐ Filter section */
+.filter-section {
+  margin: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-input {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1 1 200px;
+}
+
+.filter-dropdown {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  flex: 0 0 150px;
+}
+
+.filter-input:focus,
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* responsive adjustments */
+@media (max-width: 500px) {
+  .filter-section {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filter-dropdown {
+    flex: 1 1 100%;
+  }
 }
 
 
