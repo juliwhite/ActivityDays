@@ -274,12 +274,6 @@ footer{
     right: 0;
 }
 
-.center{ 
-    display:flex; 
-    justify-content:center; 
-    align-items:center 
-}
-
 /* Cards container */
 .cards-container {
     display: grid;
@@ -348,7 +342,7 @@ footer{
 
 .add-activity-btn {
   display: inline-block;
-  background-color: #4CAF50;
+  background-color: #d49c2c;
   color: white;
   padding: 10px 20px;
   border-radius: 8px;
