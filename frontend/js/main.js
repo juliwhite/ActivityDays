@@ -104,14 +104,22 @@ function setupCardProtection() {
 // Load and display the most recent activity on the homepage
 async function loadUpcomingActivity() {
   const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const upcomingEl = document.getElementById("recentActivity");
+  if (!upcomingEl) return;
+
 
   try {
     const res = await fetch(`${API_BASE}/api/activities/upcoming`);
+    console.log("Upcoming activity response:", res.status);
+    
+    if (!res.ok) {  
+      upcomingEl.innerHTML = `<p>Error loading upcoming activity (${res.status}).</p>`;
+      return;
+    }
+    
     const activity = await res.json();
 
-    const upcomingEl = document.getElementById("recentActivity");
-    if (!upcomingEl) return;
-
+    
     // No activities
     if (!activity || activity.message === "No activities found") {
       upcomingEl.innerHTML = `
