@@ -116,7 +116,7 @@ async function loadUpcomingActivity() {
       upcomingEl.innerHTML = `<p>Error loading upcoming activity (${res.status}).</p>`;
       return;
     }
-    
+
     const activity = await res.json();
 
     
@@ -131,14 +131,19 @@ async function loadUpcomingActivity() {
       return;
     }
 
-    const formattedDate = new Date(activity.date).toLocaleDateString();
+    const date = new Date(activity.date).toLocaleDateString();
+    const formattedDate = date.toLocaleDateString('en-US', { 
+      weekday: 'long',   // full weekday name, e.g. "Wednesday"
+      month: 'short',    // short month name, e.g. "Dec"
+      day: 'numeric'     // day of month, e.g. "3"
+    });
 
     // Display upcoming activity with full styled card
     upcomingEl.innerHTML = `
       <h2>Upcoming Activity</h2>
       <div class="activity-details">
         <p><strong>${activity.name}</strong></p>
-        <p>${activity.description}</p>
+        <p>${activity.location}</p>
         <span class="date-highlight">${formattedDate}</span>
         <a href="/category.html?category=${activity.category}" class="btn-view">View Activity</a>
       </div>
