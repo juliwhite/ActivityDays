@@ -7,8 +7,20 @@ const authorizeAdmin = require('../middleware/adminMiddleware');
 // GET all activities
 //router.get('/', authenticateToken, getAllActivities);
 
+//-------------------------------
+// Public / General Routes
+// ------------------------------
+
+// get recent activities
+router.get('/upcoming', getNextUpcomingActivity);
+
 // GET activities by category
 router.get('/category/:category', authenticateToken, getActivitiesByCategory);
+
+
+// ----------------------------
+// Activity Management Routes
+// ----------------------------
 
 // Add activity — ONLY admin
 router.post('/', authenticateToken, authorizeAdmin, createActivity);
@@ -24,8 +36,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, updateActivity);
 
 router.post('/:id/rate', authenticateToken, rateActivity);
 
-// get recent activities
-router.get('/upcoming', getNextUpcomingActivity);
+
 
 
 module.exports = router;
