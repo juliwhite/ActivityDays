@@ -106,7 +106,7 @@ async function loadUpcomingActivity() {
   const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   try {
-    const res = await fetch(`${API_BASE}/activities/upcoming`);
+    const res = await fetch(`${API_BASE}/api/activities/upcoming`);
     const activity = await res.json();
 
     const upcomingEl = document.getElementById("recentActivity");
