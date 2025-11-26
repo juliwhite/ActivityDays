@@ -66,6 +66,10 @@ header .logo {
     text-decoration:underline 
 }
 
+.title {
+    text-align: center;
+}
+
 .card{
 	background: rgba(255,255,255,0.95);
 	padding: 2rem;
@@ -79,7 +83,7 @@ h1{
     text-align: center;
 }
 
-form{ 
+/*form{ 
     display:block; 
 }
 
@@ -109,6 +113,137 @@ button{
 button[disabled]{ 
     opacity:.6; 
     cursor:not-allowed 
+}*/
+
+/* ===== LOGIN PAGE LAYOUT ===== */
+main.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 0; /* You can adjust this if you want more spacing */
+}
+
+.login-container {
+  width: 350px;        /* <<< This keeps the inputs from stretching too long */
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,.1);
+  text-align: center;
+}
+
+/* Title styling */
+.login-container h1 {
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+
+/* Input fields */
+.login-container input {
+  width: 100%;         /* keep width inside the box */
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #3478f6;
+}
+
+/* Login button */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background: #d49c2c;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.login-container button:hover {
+  background: #b5ab1b;
+}
+
+/* Sign-up link area */
+.login-container p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;  /* space for the eye icon */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.6;
+  transition: .2s;
+}
+
+.toggle-password:hover {
+  opacity: 1;
+}
+
+/* =============== SIGNUP PAGE STYLING ONLY =============== */
+main.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 0;
+}
+
+.signup-container {
+  width: 350px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.1);
+  text-align: center;
+}
+
+/* Inputs for SIGNUP only */
+.signup-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.signup-container button {
+  width: 100%;
+  padding: 12px;
+  background: #d49c2c;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .2s;
+}
+.signup-container button:hover {
+  background: #b5ab1b;
 }
 
 footer{

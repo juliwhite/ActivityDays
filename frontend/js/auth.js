@@ -23,6 +23,29 @@ function isValidPassword(password) {
 }
 
 // -------------------------------
+// Toggle Password Visibility (Login + Signup)
+// -------------------------------
+function setupPasswordToggle() {
+  document.querySelectorAll('.toggle-password').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const input = document.getElementById(toggle.dataset.target);
+
+      if (!input) return;
+
+      // Switch password <-> text
+      input.type = input.type === 'password' ? 'text' : 'password';
+      
+      // Change icon
+      toggle.textContent = input.type === 'password' ? '👁️' : '🙈';
+    });
+  });
+}
+
+// Activate toggle feature
+setupPasswordToggle();
+
+
+// -------------------------------
 // Sign Up
 // -------------------------------
 const signupForm = document.getElementById('signupForm');
