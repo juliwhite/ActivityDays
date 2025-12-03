@@ -750,3 +750,41 @@ footer{
   background: #3d6ed0;
 }
 */
+
+/* ------- Fix spacing for Edit/Delete buttons ------- */
+.card-actions {
+  display: flex;
+  gap: 12px;     
+  margin-top: 12px;
+}
+
+.card-actions button {
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+/* Edit button */
+.edit-btn {
+  background-color: #6ca4e2;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #3a78c2;
+  transform: translateY(-2px);
+}
+
+/* Delete button */
+.delete-btn {
+  background-color: #e25848;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
