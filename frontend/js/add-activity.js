@@ -100,6 +100,15 @@ if (!token) {
   throw new Error("User not logged in");
 }
 
+// ----------------------------------------------------------
+// 🔒 Block ADD page for non-admins (when NOT editing)
+// ----------------------------------------------------------
+if (!activityId && role !== "admin") {
+  messageEl.textContent = '⛔ Only Admin can add an activity.';
+  messageEl.style.color = 'red';
+  form.style.display = 'none';
+  throw new Error("Unauthorized add attempt");
+}
 
 // ----------------------------------------------------------
 // 🔒 If editing → only allow Admin
